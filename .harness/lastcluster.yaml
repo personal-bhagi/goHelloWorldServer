@@ -1,0 +1,19 @@
+connector:
+  name: lastcluster
+  identifier: lastcluster
+  description:
+  orgIdentifier: default
+  projectIdentifier: CI_quickstart
+  type: K8sCluster
+  spec:
+    credential:
+      type: ManualConfig
+      spec:
+        masterUrl: https://E0559AFADF9812FB40B06B60EB6862AF.gr7.us-west-2.eks.amazonaws.com
+        auth:
+          type: UsernamePassword
+          spec:
+            username: iam-root-account@helloworld.us-west-2.eksctl.io
+            passwordRef: kubernetessecret
+    delegateSelectors:
+    - hellodelegate
