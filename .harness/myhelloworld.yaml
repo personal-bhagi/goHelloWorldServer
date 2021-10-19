@@ -16,7 +16,7 @@ pipeline:
               identifier: Build_Test_and_Push
               type: CI
               spec:
-                  cloneCodebase: false
+                  cloneCodebase: true
                   infrastructure:
                       type: KubernetesDirect
                       spec:
@@ -62,3 +62,4 @@ pipeline:
                             image: helloworld/ciquickstart:<+pipeline.sequenceId
               when:
                   pipelineStatus: All
+              variables: []
