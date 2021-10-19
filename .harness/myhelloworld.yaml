@@ -14,10 +14,9 @@ pipeline:
         - stage:
               name: Build Test and Push
               identifier: Build_Test_and_Push
-              description: ""
               type: CI
               spec:
-                  cloneCodebase: true
+                  cloneCodebase: false
                   infrastructure:
                       type: KubernetesDirect
                       spec:
@@ -61,6 +60,5 @@ pipeline:
                         spec:
                             connectorRef: helloworlddocker
                             image: helloworld/ciquickstart:<+pipeline.sequenceId
-              variables: []
               when:
                   pipelineStatus: All
