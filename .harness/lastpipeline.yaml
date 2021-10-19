@@ -1,0 +1,95 @@
+pipeline:
+    name: lastpipeline
+    identifier: lastpipeline
+    projectIdentifier: CI_quickstart
+    orgIdentifier: default
+    tags: {}
+    properties:
+        ci:
+            codebase:
+                connectorRef: github
+                repoName: goHelloWorldServer
+                build: <+input>
+    stages:
+        - stage:
+              name: Build Test and Push
+              identifier: Build_Test_and_Push
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                          connectorRef: lastcluster
+                          namespace: harness-delegate
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: Run Unit Tests
+                                identifier: Run_Unit_Tests
+                                spec:
+                                    connectorRef: Docker_Quickstart
+                                    image: helloworld
+                                    command: docker run hello-world
+                                    privileged: false
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - "*.xml"
+                          - step:
+                                type: BuildAndPushDockerRegistry
+                                name: Build and Push an Image to Docker Registry
+                                identifier: Build_and_Push_an_Image_to_Docker_Registry
+                                spec:
+                                    connectorRef: Docker_Quickstart
+                                    repo: nagisetty1998 / ciquickstart
+                                    tags:
+                                        - <+pipeline.sequenceId>
+                                    optimize: true
+                  serviceDependencies:
+                      - identifier: runhelloworldserver
+                        name: run-hello-world-server
+                        type: Service
+                        spec:
+                            connectorRef: Docker_Quickstart
+                            image: nagisetty1998 / ciquickstart:<+pipeline.sequenceId>
+              variables: []
+              when:
+                  pipelineStatus: All
+        - stage:
+              name: Run Integration Test
+              identifier: Run_Integration_Test
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: false
+                  infrastructure:
+                      useFromStage: Build_Test_and_Push
+                  serviceDependencies:
+                      - identifier: Run_Hello_World_Server
+                        name: " Run Hello World Server"
+                        type: Service
+                        spec:
+                            connectorRef: Docker_Quickstart
+                            image: nagisetty1998 / ciquickstart:<+pipeline.sequenceId>
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: test connection to server
+                                identifier: test_connection_to_server
+                                spec:
+                                    connectorRef: Docker_Quickstart
+                                    image: curlimages/curl:7.73.0
+                                    command: "sleep 10\r
+
+                                        curl localhost:8080\r
+
+                                        curl localhost:8080?Helloworld!"
+                                    privileged: false
+              variables: []
+              when:
+                  pipelineStatus: All
