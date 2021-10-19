@@ -63,3 +63,35 @@ pipeline:
               when:
                   pipelineStatus: All
               variables: []
+        - stage:
+              name: Run Integration Test
+              identifier: Run_Integration_Test
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: false
+                  infrastructure:
+                      useFromStage: Build_Test_and_Push
+                  serviceDependencies:
+                      - identifier: runhelloworldserver
+                        name: run-helloworld-server
+                        type: Service
+                        spec:
+                            connectorRef: helloworlddocker
+                            image: nagisetty1998 / ciquickstart:<+pipeline.sequenceId>
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: test connection to server
+                                identifier: test_connection_to_server
+                                spec:
+                                    connectorRef: helloworlddocker
+                                    image: curlimages/curl:7.73.0
+                                    command: "sleep 10\r
+
+                                        curl localhost:8080\r
+
+                                        curl localhost:8080?Hello world!"
+                                    privileged: false
+              variables: []
