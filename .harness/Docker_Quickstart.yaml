@@ -1,0 +1,17 @@
+connector:
+  name: Docker Quickstart
+  identifier: Docker_Quickstart
+  description:
+  orgIdentifier: default
+  projectIdentifier: CI_quickstart
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: https://index.docker.io/v1/
+    providerType: DockerHub
+    auth:
+      type: UsernamePassword
+      spec:
+        username: nagisetty1998
+        passwordRef: Dockersecret
+    delegateSelectors:
+    - hellodelegate
