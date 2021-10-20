@@ -22,7 +22,7 @@ pipeline:
                       type: KubernetesDirect
                       spec:
                           connectorRef: lastcluster
-                          namespace: harness-delegate
+                          namespace: default
                   execution:
                       steps:
                           - step:
