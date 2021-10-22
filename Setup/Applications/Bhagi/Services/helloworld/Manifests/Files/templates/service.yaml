@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: Service
-metadata:
-  name: {{.Values.name}}-svc
+metadata: 
+ name: helloworld-service
+ labels:
+   name: helloworld-service
+   app: demo-helloworld-app	
 spec:
-  type: {{.Values.serviceType}}
+  type: LoadBalancer
   ports:
-  - port: {{.Values.servicePort}}
-    targetPort: {{.Values.serviceTargetPort}}
-    protocol: TCP
+  - port: 80
+    targetPort: 8080
   selector:
-    app: {{.Values.name}}
+    name: helloworld-app-pod
+    app: demo-helloworld-app
