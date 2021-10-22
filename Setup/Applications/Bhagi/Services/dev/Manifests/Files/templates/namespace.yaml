@@ -1,5 +1,0 @@
-# Namespace for the Jenkins 
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: harness-delegate-ng
