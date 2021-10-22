@@ -1,0 +1,8 @@
+harnessApiVersion: '1.0'
+type: SETUP
+commandUnitType: COMMAND
+commandUnits:
+- commandUnitType: ECS_SETUP
+  deploymentType: ECS
+  name: Setup ECS Service
+targetToAllEnv: true
