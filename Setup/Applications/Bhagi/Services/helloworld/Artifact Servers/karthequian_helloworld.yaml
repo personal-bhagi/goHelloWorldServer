@@ -1,0 +1,4 @@
+harnessApiVersion: '1.0'
+type: DOCKER
+imageName: karthequian/helloworld
+serverName: Harness Docker Hub
