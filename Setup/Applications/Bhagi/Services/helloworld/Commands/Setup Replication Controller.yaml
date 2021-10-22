@@ -1,8 +1,0 @@
-harnessApiVersion: '1.0'
-type: SETUP
-commandUnitType: COMMAND
-commandUnits:
-- commandUnitType: KUBERNETES_SETUP
-  deploymentType: KUBERNETES
-  name: harness-delegate
-targetToAllEnv: true
