@@ -5,4 +5,12 @@ commandUnits:
 - commandUnitType: ECS_SETUP
   deploymentType: ECS
   name: helloworld
+- command: |-
+    docker login --username="$DOCKER_USER_ID" --password="$DOCKER_USER_PASSWORD"
+    docker run -d -it "$DOCKER_IMAGE"
+    docker logout
+  commandUnitType: DOCKER_START
+  deploymentType: SSH
+  name: Docker Start
+  scriptType: BASH
 targetToAllEnv: true
