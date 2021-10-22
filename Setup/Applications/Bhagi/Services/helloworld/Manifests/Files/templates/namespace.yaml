@@ -1,6 +1,5 @@
-{{- if .Values.createNamespace}}
+# Namespace for the Jenkins 
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{.Values.namespace}}
-{{- end}}
+  name: hello-world
