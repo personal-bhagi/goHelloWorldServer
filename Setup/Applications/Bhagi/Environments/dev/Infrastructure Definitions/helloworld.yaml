@@ -1,0 +1,17 @@
+harnessApiVersion: '1.0'
+type: INFRA_DEFINITION
+cloudProviderType: AWS
+deploymentType: AWS_LAMBDA
+infrastructure:
+- type: AWS_AWS_LAMBDA
+  cloudProviderName: Amazon Web Services
+  iamRole: arn:aws:iam::635631106526:role/externalecs
+  region: ap-south-1
+  securityGroupIds:
+  - sg-0124c6c04c064d815
+  - sg-eec95490
+  subnetIds:
+  - subnet-0b7c8260
+  - subnet-6fcae523
+  - subnet-6671001d
+  vpcId: vpc-8865b4e3
