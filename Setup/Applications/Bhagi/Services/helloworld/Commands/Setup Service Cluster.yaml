@@ -4,5 +4,5 @@ commandUnitType: COMMAND
 commandUnits:
 - commandUnitType: ECS_SETUP
   deploymentType: ECS
-  name: Setup ECS Service
+  name: helloworld
 targetToAllEnv: true
